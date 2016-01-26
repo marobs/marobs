@@ -57,9 +57,10 @@ def splitPV(string, keyword):
 	for popList in populationList:
 		pvList.append(findPV(popList))
 
-	print("PVs for " + keyword + ":")
+	total = 0;
 	for pv in pvList:
-		print("\t" + str(pv))
+		total += pv
+	print "PV for " + keyword + ":\t" + str(total)
 
 def generateSplitString(string, numChars, offset):
 	newStringList = []
