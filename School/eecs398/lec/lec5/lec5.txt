@@ -1,0 +1,17 @@
+Make language syntax:
+
+target: dependencies
+	rules
+
+target: The "thing" you're trying to make. The program you're trying to compile the source into.
+dependencies: The source files and targets that building the target depends on. Recursively walks the tree of what each target depends on.
+
+		Top Level Target
+			/		   \
+	2 Level Target	  Source File
+		/		\
+Source File	  Source File
+
+Important to declare all of the files you depend on because if you don't include a link Make will silently fail.
+
+rules:
