@@ -1,15 +1,15 @@
 # Shell commands:
 ```
-which [application] 			
-file [filename]       # Tells the file type
-[command] &           # Runs the specified application/command in the background
-jobs                  # Lists current proccesses launched by terminal
-kill [x]              # Stops job x
-sleep [x]             # Sleeps the terminal the specified amount of time
-ctrl-z                # Quits sleep
-fg                    # Pushes an application to the foreground of the terminal
-bg                    # Pushes foreground to background
-chmod u+x [filename]  # Grant extra permission to the user to execute the filename 
+which [application]    # Gives location of application binary
+file [filename]        # Tells the file type
+[command] &            # Runs the specified application/command in the background
+jobs                   # Lists current proccesses launched by terminal
+kill [x]               # Stops job x
+sleep [x]              # Sleeps the terminal the specified amount of time
+ctrl-z                 # Quits sleep
+fg                     # Pushes an application to the foreground of the terminal
+bg                     # Pushes foreground to background
+chmod u+x [filename]   # Grant extra permission to the user to execute the filename 
 ```
 
 ## Unix tools
@@ -30,4 +30,12 @@ git commit
 git checkout <filename>  # Pulls the latest version of the file from the git repo
 git add -p               # Split possible additions into hunks
 git fsck                 # git filecheck. Can recover lost commits, files, etc.
+```
+
+## Python examples
+#### File I/O
+```python
+with open(FILENAME, 'r/w/a (b+)') as f:
+	linelist = [line.rstrip() for line in f]
+	f.write(OUTPUTSTRING)
 ```
