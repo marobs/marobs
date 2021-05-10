@@ -1,0 +1,44 @@
+#############################################
+#                                           #
+#                 Aliases                   #
+#                                           #
+#############################################
+
+alias ls="ls --color"
+
+# On Mac OS X, ls shows colors if CLICOLOR env variable is set
+export CLICOLOR=1
+
+# Colors are set through the LSCOLORS env variable
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+#############################################
+#                                           #
+#                 Aliases                   #
+#                                           #
+#############################################
+
+alias gpoh="git push origin HEAD"
+alias gts="git status"
+
+HISTFILESIZE=100000000
+source /etc/bashrc_fitbit
+
+#############################################
+#                                           #
+#                    PS1                    #
+#                                           #
+#############################################
+
+MONO_PS1='\D{%Y-%m-%d %I:%M:%S%p} !\! \u@\h \l \w $(_gitbranch)\n\$ '
+MICHAEL_PS1='\h:\W $(_gitbranch)$ '
+OLD_PS1='\h:\w \u\$'
+PS1=$MICHAEL_PS1
+
+#############################################
+#                                           #
+#              Terminal Tab                 #
+#                                           #
+#############################################
+
+export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
