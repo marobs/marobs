@@ -1,4 +1,19 @@
-## Shell commands:
+## Python venv
+```
+# Create a new virtual env in the current directory
+python3 -m venv .
+
+# Activate virtual environment
+source bin/activate
+
+# Install dependencies listed in REQUIREMENTS.txt
+pip install -r REQUIREMENTS.txt
+
+# Deactivate 
+deactivate
+```
+
+## Shell commands
 ```
 which [application]    # Gives location of application binary
 file [filename]        # Tells the file type
