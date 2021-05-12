@@ -41,4 +41,5 @@ PS1=$MICHAEL_PS1
 #                                           #
 #############################################
 
+# https://superuser.com/questions/79972/set-the-title-of-the-terminal-window-to-the-current-directory
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
