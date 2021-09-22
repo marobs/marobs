@@ -1,8 +1,19 @@
-#############################################
-#                                           #
-#                 Aliases                   #
-#                                           #
-#############################################
+#################################################################################################################
+#
+# General settings
+#
+#################################################################################################################
+
+HISTFILESIZE=100000000
+
+# [ -d "/path/to/dir" ] evaluates to true if the directory exists; && will run the following command if it exists
+[ -d "/etc/bashrc_fitbit" ] && source /etc/bashrc_fitbit
+
+#################################################################################################################
+#
+# Colorful commands
+#
+#################################################################################################################
 
 alias ls="ls --color"
 
@@ -12,34 +23,130 @@ export CLICOLOR=1
 # Colors are set through the LSCOLORS env variable
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
-#############################################
-#                                           #
-#                 Aliases                   #
-#                                           #
-#############################################
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias diff='diff --color=auto'
+fi
+
+#################################################################################################################
+#
+# Aliases
+#
+#################################################################################################################
 
 alias gpoh="git push origin HEAD"
 alias gts="git status"
 
-HISTFILESIZE=100000000
-source /etc/bashrc_fitbit
 
-#############################################
-#                                           #
-#                    PS1                    #
-#                                           #
-#############################################
 
-MONO_PS1='\D{%Y-%m-%d %I:%M:%S%p} !\! \u@\h \l \w $(_gitbranch)\n\$ '
-MICHAEL_PS1='\h:\W $(_gitbranch)$ '
-OLD_PS1='\h:\w \u\$'
-PS1=$MICHAEL_PS1
+#################################################################################################################
+#
+# PS1 Cheat Sheet
+#
+#################################################################################################################
 
-#############################################
-#                                           #
-#              Terminal Tab                 #
-#                                           #
-#############################################
+############
+#  Colors  #
+############
+
+# Including a character code sets the color of the rest of the prompt until another color
+# character code is encountered. Character codes look like 
+#
+#     Color:   \[\033[0<lightness_number>;<color number>m\]
+#     Default: \[\033[00m\]
+#
+# The <lightness_number> is either 0 or 1; 0 for dark, 1 for light.
+# 
+# Color numbers include: 
+# 
+#   Black 30   Blue 34    Green 32  Cyan 36  
+#   Red 31     Purple 35  Brown 33   
+
+###############
+#  Variables  #
+###############
+
+#  \d   The date, in "Weekday Month Date" format (e.g., "Tue May 26"). 
+#  \h   The hostname, up to the first . (e.g. deckard) 
+#  \H   The hostname. (e.g. deckard.SS64.com)
+#  \j   The number of jobs currently managed by the shell. 
+#  \l   The basename of the shell's terminal device name. 
+#  \s   The name of the shell, the basename of $0 (the portion following the final slash). 
+#  \t   The time, in 24-hour HH:MM:SS format. 
+#  \T   The time, in 12-hour HH:MM:SS format. 
+#  \@   The time, in 12-hour am/pm format. 
+#  \u   The username of the current user. 
+#  \v   The version of Bash (e.g., 2.00) 
+#  \V   The release of Bash, version + patchlevel (e.g., 2.00.0) 
+#  \w   The current working directory. 
+#  \W   The basename of $PWD. 
+#  \!   The history number of this command. 
+#  \#   The command number of this command. 
+#  \$   If you are not root, inserts a "$"; if you are root, you get a "#"  (root uid = 0) 
+#  \n   A newline. 
+#  \r   A carriage return. 
+#  \e   An escape character (typically a color code). 
+#  \a   A bell character.
+#  \\   A backslash. 
+#  \[   Begin a sequence of non-printing characters. (like color escape sequences). This
+#       allows bash to calculate word wrapping correctly.
+#  \]   End a sequence of non-printing characters.
+
+#################################################################################################################
+#
+# PS1 set
+#
+#################################################################################################################
+
+# A method to provide the current git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+MICHAEL_BASIC_PS1='\h:\W $(parse_git_branch)$ '
+MICHAEL_COLOR_PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[01;35m\]$(parse_git_branch)\[\033[00m\]\$ '
+MICHAEL_GOOGLE_COLOR_PS1='${debian_chroot:+($debian_chroot)}$MICHAEL_COLOR_PS1'
+PS1=$MICHAEL_COLOR_PS1
+
+#################################################################################################################
+#
+# Terminal tab title (MacOS)
+#
+#################################################################################################################
 
 # https://superuser.com/questions/79972/set-the-title-of-the-terminal-window-to-the-current-directory
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
+
+
+#################################################################################################################
+#
+# Sample bash functions
+#
+#################################################################################################################
+
+# Projector alias for starting up Jetbrains Projector Server
+alias projector='~/Workspace/projector-server-1.0-SNAPSHOT/projector.sh'
+
+# Adds an admin_assessment method that calls out to the Sleep Apnea prod backend with a specified userid
+admin_assessment () {
+  re='^[0-9]+$'
+  if [ -z "$1" ] ;
+  then
+    echo "Usage: admin_assessment <unencoded_id>"
+  else
+    if ! [[ $1 =~ $re ]] ;
+    then
+      echo "Usage: admin_assessment <unencoded_id>"
+    else
+      curl -v --resolve sleep-apnea-prod.site-ops.fitbit.com:443:127.0.0.145 https://sleep-apnea-prod.site-ops.fitbit.com/1/user/$1/sleep-apnea/admin/assessment
+    fi
+  fi
+}
