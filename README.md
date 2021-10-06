@@ -1,3 +1,27 @@
+## Tmux Commands
+```
+# Start a new session
+tmux ; tmux new ; tmux new-session
+
+# Start a new session with the name 'mysession'
+tmux new -s mysession
+
+# Kill/delete session mysession
+tmux kill-ses -t mysessions
+tmux kill-session -t mysession
+
+# Show all sessions
+tmux ls ; tmux list-sessions
+
+# Attach to last session
+tmux a ; tmux at ; tmux attach ; tmux attach-session
+
+# Attach to session with name mysession
+tmux a -t mysession
+tmux at -t mysession
+tmux attach -t mysession
+```
+
 ## Python venv
 ```
 # Create a new virtual env in the current directory
