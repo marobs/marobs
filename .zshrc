@@ -1,9 +1,33 @@
+##############################################################################
+#
+# Introduction
+#
+# Hey! Looks like you're setting up a new environment. Good luck buddy. Should
+#
+# This is the .zshrc file I have on my google macs (both local MBP and Mac Pro).
+# This file should walk you through setting up .oh-my-zsh, p10k, and some
+# additional configurations. To do that:
+#
+#  1. Install iTerm2
+#  2. Install oh-my-zsh
+#  3. Install p10k
+#  4. Install the oh-my-zsh addons listed below)
+#  5. Copy this file as your .zshrc
+#  6. Update X file to set the prompt with the apple symbol
+#
+##############################################################################
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ################################################################################
 #
@@ -65,11 +89,12 @@ export ZSH="/Users/marobs/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set up zsh plugins to load
-# To install autosuggestions: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions\n
-# To install syntax highlighting: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting\n
+# To install autosuggestions: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# To install syntax highlighting: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ################################################################################
 #
@@ -158,5 +183,3 @@ admin_assessment () {
     fi
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
