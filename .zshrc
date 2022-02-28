@@ -13,7 +13,8 @@
 #  3. Install p10k
 #  4. Install the oh-my-zsh addons listed below)
 #  5. Copy this file as your .zshrc
-#  6. Update X file to set the prompt with the apple symbol
+#  6. Update .p10k.zsh file to update POWERLEVEL9K_LEFT_PROMPT_ELEMENTS to add
+#       os_icon if you want it.
 #
 ##############################################################################
 
