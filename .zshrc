@@ -157,11 +157,41 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 #
 ################################################################################
 
+# General
+alias cdls="cd ls"
+
 # Google
 alias cloudtop="ssh marobs.c.googlers.com"
+source /etc/bash_completion.d/hgd
 
 # Git
 alias gts="git status"
+alias gp='git push origin HEAD:refs/for/master'
+
+################################################################################
+#
+# Google Auth Env Aliases
+#
+################################################################################
+
+# Tmux - Join session "macpro"
+alias tmux_attach='tmx2 -CC a -t macpro'
+alias tmux_create='tmx2 -CC new-session -s macpro'
+
+# Cloudtop proxy commands
+alias cex='ssh -t marobs.c.googlers.com -- "(gcertstatus --check_remaining=1h --quiet || gcert) && cd $PWD && "'
+alias build_cleaner='cex build_cleaner'
+
+# Alias gerrit-init to set up Change-Id hook
+alias gerrit-init="git rev-parse --is-inside-work-tree &> /dev/null && (cd \"\`git rev-parse --show-toplevel --git-dir | tr \"\n\" \"/\"\`\" && curl -Lo hooks/commit-msg https://gerrit-review.googlesource.com/tools/hooks/commit-msg 2> /dev/null; chmod +x hooks/commit-msg; echo \"Successfully initialized\") || echo \"Not in a git repository\""
+
+# Alias for changing directory to google3
+alias cdg='cd /google/src/head/depot/google3'
+alias cdh='cd /google/src/cloud/marobs'
+alias cdtt='cd /google/src/head/depot/google3/java/com/google/fitbit/platform/regulated/tooling/traceability'
+
+# Alias for starting ftu on mac pro
+alias fftu='cd /google/src/head/depot/google3 && /usr/local/bin/blaze run //fitbit/migration/devtools:legacy_build_tunnel --config=darwin_x86_64'
 
 ################################################################################
 #
@@ -169,18 +199,12 @@ alias gts="git status"
 #
 ################################################################################
 
-admin_assessment () {
-    re='^[0-9]+$'
-    if [ -z "$1" ] ; 
-    then
-        echo "Usage: admin_assessment <unencoded_id>"
-    else
-        if ! [[ $1 =~ $re ]] ; 
-        then
-            echo "Usage: admin_assessment <unencoded_id>"
-        else
-            curl -v --resolve sleep-apnea-prod.site-ops.fitbit.com:443:127.0.0.145 https://sleep-apnea-prod.site-ops.fitbit.com/1/user/$1/sleep-apnea/admin/assessment
-        fi
-    fi
-}
+source ~/admin_apnea_scripts.sh
+source ~/scripts.sh
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/marobs/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/marobs/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/marobs/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/marobs/google-cloud-sdk/completion.zsh.inc'; fi
+[[ -e "/Users/marobs/mdproxy/data/mdproxy_zshrc" ]] && source "/Users/marobs/mdproxy/data/mdproxy_zshrc" # MDPROXY-ZSHRC
