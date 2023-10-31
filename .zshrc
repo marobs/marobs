@@ -103,12 +103,10 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #
 ################################################################################
 
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/
-
 # Include fitbit-managed files
 export PATH="/Users/marobs/fitbit/bin/releases/bootstrap:${PATH}"
 export PATH="$PATH:$HOME/.bin"
-export PATH="$PATH:/google/src/head/depot/google3/fitbit/migration/devtools/bootstrap-bin:/usr/local/google/home/gcampfield/fitbit/bin/releases/gcp-rbac:/usr/local/google/home/gcampfield/fitbit/bin/releases/devprod:"
+export PATH="$PATH:/google/src/head/depot/google3/fitbit/migration/devtools/bootstrap-bin:/usr/local/google/home/naribs/fitbit/bin/releases/gcp-rbac:/usr/local/google/home/marobs/fitbit/bin/releases/devprod:"
 
 # Include profile.d files.
 for i in ~/profile.d/*.sh ; do
